@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка файла</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #02224A, #3751AE);
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+            background-repeat: no-repeat;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #3751AE;
+        }
+        .navbar-brand {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .main-content h2 {
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(7px)
+            padding: 1px;
+            border-radius: 50px;
+        }
+        .label-with-blur {
+            background-color: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(7px);
+            padding: 1px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        .main-content h3{
+           background-color: rgba(0, 0, 0, 0.4);
+           backdrop-filter: blur(7px)
+           padding: 1px;
+           border-radius: 50px;
+        }
+        .navbar-brand:hover {
+            color: #AD89A2;
+        }
+        .footer {
+            background-color: #3751AE;
+            color: #fff;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+        .footer a {
+            color: #AD89A2;
+        }
+        .footer a:hover {
+            color: #fff;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-control {
+            background-color: #AD89A2;
+            color: #fff;
+            border: none;
+        }
+        .form-control:focus {
+            background-color: #AD89A2;
+            color: #fff;
+            border-color: #309F96;
+            box-shadow: 0 0 0 0.2rem rgba(43, 163, 108, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">RNDM_STARS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="blurred-background">
+                        <h2 class="mb-4 text-center">Природа</h2>
+                        <h3 class="mb-4 text-center">Загрузите JPEG или WAV файл</h3>
+                    </div>
+                    <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.file.id_for_label }}" class="label-with-blur">Файл</label>
+                {{ form.file }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.atmosphere.id_for_label }}" class="label-with-blur">Атмосфера</label>
+                {{ form.atmosphere }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.hashtags.id_for_label }}" class="label-with-blur">Хэштеги</label>
+                {{ form.hashtags }}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Загрузить</button>
+        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="#">Русский</a> |
+                    <a href="#">Помощь</a> |
+                    <a href="#">Ещё</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">О компании</a>
+                        <a class="dropdown-item" href="#">Соглашения и политики</a>
+                    </div>
+                </div>
+                <div class="col-md-6 text-right">
+                    <p>© 2024 ООО "RNDM_STARS"</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const atmosphereSelect = document.getElementById('id_atmosphere');
+        const body = document.body;
+
+        atmosphereSelect.addEventListener('change', function() {
+            const selectedAtmosphere = atmosphereSelect.value;
+            let backgroundImageUrl = '';
+
+            switch (selectedAtmosphere) {
+                case 'egyptian':
+                    backgroundImageUrl = 'https://www.jetfinder.com/wp-content/uploads/2023/01/16472.jpg';
+                    break;
+                case 'jungle':
+                    backgroundImageUrl = 'https://static.spektrum.de/fm/912/f1920x1080/Ur-Wald_iStock-480369889_pxhidalgo.jpg';
+                    break;
+                case 'marine':
+                    backgroundImageUrl = 'https://i.artfile.me/wallpaper/05-07-2015/1920x1080/priroda-voda-volna-zakat-blue-more-okean-947741.jpg';
+                    break;
+                case 'persian':
+                    backgroundImageUrl = 'https://i.artfile.me/wallpaper/07-12-2017/1920x1080/priroda-reki-ozera-prostor-1277313.jpg';
+                    break;
+                case 'japanese':
+                    backgroundImageUrl = 'https://www.tapeciarnia.pl/tapety/normalne/tapeta-bentendo-temple-w-kompleksie-swiatyn-daigo-ji.jpg';
+                    break;
+                case 'russian':
+                    backgroundImageUrl = 'https://avatars.mds.yandex.net/i?id=113dd21ef587079547f6f6791b809e65_l-4935775-images-thumbs&n=13';
+                    break;
+                default:
+                    backgroundImageUrl = '';
+            }
+
+            body.style.backgroundImage = `url(${backgroundImageUrl})`;
+        });
+    });
+</script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
